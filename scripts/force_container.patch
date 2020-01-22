@@ -1,0 +1,13 @@
+diff --git a/functions b/functions
+index d55cd74..cb96ebe 100644
+--- a/functions
++++ b/functions
+@@ -715,7 +715,7 @@ function set_mtu {
+
+ # running_in_container - Returns true otherwise false
+ function running_in_container {
+-    [[ $(systemd-detect-virt --container) != 'none' ]]
++    [[ $(systemd-detect-virt --container) != 'abc' ]]
+ }
+
+

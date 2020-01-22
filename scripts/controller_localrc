@@ -1,0 +1,30 @@
+GIT_BASE=https://opendev.org
+RECLONE=yes
+
+#SERVICE_HOST defined by on the fly
+#SERVICE_HOST=os-controller
+
+DATABASE_PASSWORD=623
+ADMIN_PASSWORD=623
+MYSQL_PASSWORD=623
+RABBIT_PASSWORD=guest
+SERVICE_PASSWORD=623
+SERVICE_TOKEN=ADMIN
+
+REPOS_UPDATED=True
+
+DATABASE_BACKENDS=mysql
+SERVICE_TIMEOUT=600
+
+# Disable ipv6, since ipv6 setup doesn't work in container.
+IP_VERSION=4
+
+disable_service etcd3
+enable_service q-svc
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-l3
+enable_service q-meta
+enable_service quantum
+enable_service placement-api
+disable_service n-cpu

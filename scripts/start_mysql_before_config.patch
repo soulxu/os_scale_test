@@ -1,0 +1,12 @@
+diff --git a/lib/databases/mysql b/lib/databases/mysql
+index a0cf7a4..ff68a45 100644
+--- a/lib/databases/mysql
++++ b/lib/databases/mysql
+@@ -84,6 +84,7 @@ function configure_database_mysql {
+         # service is not started by default
+         start_service $mysql
+     fi
++    sudo systemctl start mysql.service
+
+     # Set the root password - only works the first time. For Ubuntu, we already
+     # did that with debconf before installing the package, but we still try,
