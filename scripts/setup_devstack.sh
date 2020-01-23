@@ -6,7 +6,7 @@ set +e
 SETUP_TYPE=${1}
 CONTROLLER_HOST=${2}
 CONTROLLER_IP=${3}
-BUILD_DEPS='git sudo libaio1 libaio-dev'
+BUILD_DEPS='git sudo libaio1 libaio-dev vim net-tools'
 SCRIPT_DIR='/mnt'
 
 cd ~
@@ -29,10 +29,10 @@ su - stack -c "git clone https://github.com/openstack/devstack.git"
 
 if [ "$SETUP_TYPE" == "controller" ]; then
     # In ubuntu mysql depends on apparmor. so hack it here, ensure mysql disable for apparmor
-    apt-get -y install apparmor
-    cp $SCRIPT_DIR/usr.sbin.mysqld /etc/apparmor.d/
-    ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
-    apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+    #apt-get -y install apparmor
+    #cp $SCRIPT_DIR/usr.sbin.mysqld /etc/apparmor.d/
+    #ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+    #apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
 
     cp $SCRIPT_DIR/controller_localrc /opt/stack/devstack/localrc
     echo "SERVICE_HOST="$(hostname) >> /opt/stack/devstack/localrc
