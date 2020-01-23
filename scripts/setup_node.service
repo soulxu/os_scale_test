@@ -1,8 +1,9 @@
 [Unit]
 Description=set up node
-Before=devstack@q-agt.service
+Before=devstack@q-agt.service devstack@n-cpu.service
 
 [Service]
+EnvironmentFile=/mnt/env.file
 Type=oneshot
 ExecStart=/opt/stack/setup_node.sh
 
