@@ -3,6 +3,9 @@
 
 set +e
 
+SETUP_TYPE=${1}
+CONTROLLER_HOST=${2}
+CONTROLLER_IP=${3}
 BUILD_DEPS='git sudo libaio1 libaio-dev'
 SCRIPT_DIR='/mnt'
 
@@ -30,9 +33,21 @@ git clone https://github.com/openstack/devstack.git
 
 su - stack -c "git clone https://github.com/openstack/devstack.git"
 
-cp $SCRIPT_DIR/controller_localrc /opt/stack/devstack/localrc
-
-echo "SERVICE_HOST="$(hostname) >> /opt/stack/devstack/localrc
+if [ "$SETUP_TYPE" == "controller" ]; then
+    cp $SCRIPT_DIR/controller_localrc /opt/stack/devstack/localrc
+    echo "SERVICE_HOST="$(hostname) >> /opt/stack/devstack/localrc
+elif [ "$SETUP_TYPE" == "compute" ]; then
+    cp $SCRIPT_DIR/compute_localrc /opt/stack/devstack/localrc
+    echo "SERVICE_HOST="$CONTROLLER_HOST >> /opt/stack/devstack/localrc
+    echo "$CONTROLLER_IP $CONTROLLER_HOST" >> /etc/hosts
+    cp $SCRIPT_DIR/setup_node.sh /opt/stack/
+    cp $SCRIPT_DIR/setup_node.service /etc/systemd/system
+    systemctl daemon-reload
+    systemctl enable setup_node.service
+else
+    echo "Invalid setup type"
+    exit 1
+fi
 
 su - stack -c "cd /opt/stack/devstack && git checkout origin/stable/pike" 
 

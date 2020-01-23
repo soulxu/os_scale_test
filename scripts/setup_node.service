@@ -1,0 +1,10 @@
+[Unit]
+Description=set up node
+Before=devstack@q-agt.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/stack/setup_node.sh
+
+[Install]
+WantedBy=multi-user.target
