@@ -12,7 +12,7 @@ HOSTNAME=${1}
 IMAGE_NAME=${2}
 
 BASE_IMAGE=ubuntu:16.04
-NETWORK=bridge
+NETWORK=br0
 SCRIPT_DIR="$(pwd)/scripts"
 
 
@@ -20,4 +20,5 @@ SCRIPT_DIR="$(pwd)/scripts"
 # --cap-add=ALL
 BASE_CONTAINER_ID=`docker run -d -v "$SCRIPT_DIR:/mnt" --cap-add=NET_ADMIN --privileged --network $NETWORK --hostname $HOSTNAME $BASE_IMAGE /sbin/init`
 docker exec -it $BASE_CONTAINER_ID /mnt/setup_devstack.sh controller
+docker kill $BASE_CONTAINER_ID
 docker commit $BASE_CONTAINER_ID $IMAGE_NAME
