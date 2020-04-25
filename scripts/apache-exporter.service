@@ -1,0 +1,10 @@
+[Unit]
+Description = apache-exporter
+
+[Service]
+Restart = always
+ExecStart = /opt/stack/apache_exporter-0.7.0.linux-amd64/apache_exporter
+User = stack
+
+[Install]
+WantedBy = multi-user.target

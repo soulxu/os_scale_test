@@ -1,0 +1,10 @@
+[Unit]
+Description = node exporter
+
+[Service]
+Restart = always
+ExecStart = /opt/stack/node_exporter-1.0.0-rc.0.linux-amd64/node_exporter
+User = stack
+
+[Install]
+WantedBy = multi-user.target

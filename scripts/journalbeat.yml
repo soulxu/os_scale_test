@@ -1,0 +1,34 @@
+journalbeat.inputs:
+  - paths: []
+    seek: cursor
+    include_matches:
+      - systemd.unit=devstack@c-api.service
+      - systemd.unit=devstack@c-sch.service
+      - systemd.unit=devstack@c-vol.service
+      - systemd.unit=devstack@dstat.service
+      - systemd.unit=devstack@g-api.service
+      - systemd.unit=devstack@g-reg.service
+      - systemd.unit=devstack@keystone.service
+      - systemd.unit=devstack@n-api-meta.service
+      - systemd.unit=devstack@n-api.service
+      - systemd.unit=devstack@n-cauth.service
+      - systemd.unit=devstack@n-cond-cell1.service
+      - systemd.unit=devstack@n-novnc.service
+      - systemd.unit=devstack@n-sch.service
+      - systemd.unit=devstack@n-super-cond.service
+      - systemd.unit=devstack@placement-api.service
+      - systemd.unit=devstack@q-agt.service
+      - systemd.unit=devstack@q-dhcp.service
+      - systemd.unit=devstack@q-l3.service
+      - systemd.unit=devstack@q-meta.service
+      - systemd.unit=devstack@q-svc.service
+setup.template.settings:
+  index.number_of_shards: 1
+setup.kibana: null
+output.logstash:
+  # The Logstash hosts
+  hosts: ["localhost:5044"]
+processors:
+  - add_host_metadata: null
+  - add_cloud_metadata: null
+  - add_docker_metadata: null
